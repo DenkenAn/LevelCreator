@@ -15,7 +15,7 @@ from assets import *
 
 pygame.init()
 
-pygame.mixer.music.load("Megalovania.wav")
+pygame.mixer.music.load("Megalovania.ogg")
 
 gameDisp=pygame.display.set_mode((1280,720))
 pygame.display.set_caption("LevelCreator")
@@ -455,7 +455,9 @@ def getout():                                                           #exits g
     pygame.mixer.music.stop()
     
 def snapshot():
-    pygame.image.save(gameDisp,"snap.png")
+    global counter
+    counter+=1
+    pygame.image.save(gameDisp,".\Snapshot\snap{a}.png".format(a=counter))
 
 #------------------------------------------------------------------------------
 # CREATE MENU LOOP
@@ -463,7 +465,7 @@ def snapshot():
 
 def game_create():                                             #create screen loop
     
-    global page,createExit,mainGridFloor,hoverGrid,pagelim,highlight,hpos
+    global page,createExit,mainGridFloor,hoverGrid,pagelim,highlight,hpos,counter
     
     mainGridFloor=[[Void(100+(j*64),100+(i*64)) for j in range(10)] for i in range(8)]
     mainGridFloor[0][-1]=Zone(676,100,"End")
@@ -474,6 +476,7 @@ def game_create():                                             #create screen lo
     pagelim=2
     highlight = Floor(840,116)
     hpos=(840,116)
+    counter=0
     
     while not createExit:
         for event in pygame.event.get():
